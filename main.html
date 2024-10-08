@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6th Month Anniversary</title>
+    <!-- Materialize CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <style>
+        /* Make each section take up the full viewport */
+        .section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .card-flip {
+            perspective: 1000px;
+        }
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .card:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+        }
+        .card-back {
+            transform: rotateY(180deg);
+        }
+        
+        .memory-content {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+        }
+
+        .image-container {
+            flex: 1;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .text-container {
+            flex: 1;
+            padding: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .memory-content {
+                flex-direction: column;
+            }
+
+            .image-container, .text-container {
+                width: 100%;
+            }
+        }
+
+        /* Updated color scheme */
+        .section:nth-child(odd) {
+            background-color: #f8e1e8; /* Soft pink */
+        }
+        .section:nth-child(even) {
+            background-color: #e6e6fa; /* Lavender */
+        }
+        .card {
+            background-color: #fff0f5; /* Lavender blush */
+        }
+        .btn {
+            background-color: #d8bfd8; /* Thistle */
+        }
+        .btn:hover {
+            background-color: #dda0dd; /* Plum */
+        }
+
+        /* Add this new style for the first section */
+        #intro-section {
+            background-image: url('src/background.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Add this style to ensure text is readable on the background */
+        #intro-section h2,
+        #intro-section p {
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        /* Update the text container for the intro section */
+        #intro-section .intro-content {
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        /* Style the video section */
+        .video-section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #anniversarySong {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1000;
+            object-fit: cover;
+        }
+        
+        /* Add these styles to your existing <style> tag */
+        html {
+            scroll-behavior: smooth;
+            scroll-snap-type: y mandatory;
+        }
+        
+        .section {
+            scroll-snap-align: start;
+        }
+
+        /* Update the dot navigation styles */
+        .dot-navigation {
+            position: fixed;
+            left: 50%;
+            bottom: 20px;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #d8bfd8;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .dot.active {
+            background-color: #8B4513;
+        }
+
+        /* Increase text size in memory sections */
+        .memory-content .text-container h5 {
+            font-size: 1.8rem; /* Increased from default */
+        }
+
+        .memory-content .text-container p {
+            font-size: 1.2rem; /* Increased from default */
+        }
+
+        /* Ensure italic text also increases in size */
+        .memory-content .text-container i {
+            font-size: 1.1rem; /* Slightly smaller than regular text */
+        }
+
+        /* Add this style to ensure text is readable on the background */
+        #intro-section h2,
+        #intro-section p {
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        /* Update the text container for the intro section */
+        #intro-section .intro-content {
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        /* Style the video section */
+        .video-section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #anniversarySong {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1000;
+            object-fit: cover;
+        }
+        
+        /* Add these styles to your existing <style> tag */
+        html {
+            scroll-behavior: smooth;
+            scroll-snap-type: y mandatory;
+        }
+        
+        .section {
+            scroll-snap-align: start;
+        }
+
+        /* Update the dot navigation styles */
+        .dot-navigation {
+            position: fixed;
+            left: 50%;
+            bottom: 20px;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #d8bfd8;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .dot.active {
+            background-color: #8B4513;
+        }
+    </style>
+    <!-- Add this line to include the canvas-confetti library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    <!-- Introduction Section -->
+    <div id="intro-section" class="section">
+        <h2 class="grey-text text-darken-3">Happy 6th Month Anniversary!</h2>
+        <p class="grey-text text-darken-2">Here are 6 of my favorite memories with baby</p>
+    </div>
+
+    <!-- Memory Section 1 -->
+    <div id="memory-1" class="section">
+        <div class="memory-content">
+            <div class="image-container">
+                <img src="src/moment1.jpg" alt="Moment 1 Image">
+            </div>
+            <div class="text-container">
+                <h5 style="color: #8B4513;">Camping Adventure</h5>
+                <p style="color: #4A4A4A;">Nothing is a better bonding experience than a tramatic one. Despite the pouring rain, we still munched on smores and 
+                    acquired smores mouth. I'll always cherish the memory of us hugging each other tight for warmth.
+                    <br>
+                    <br>
+                    <i>If you told me that the world's endin. Ain't no other way that I can spend it</i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Memory Section 2 -->
+    <div id="memory-2" class="section">
+        <div class="memory-content">
+            <div class="image-container">
+                <img src="src/moment2.jpg" alt="Moment 2 Image">
+            </div>
+            <div class="text-container">
+                <h5 style="color: #4B0082;">Lookout Mountain</h5>
+                <p style="color: #483D8B;">I'll always remember the moonlight bouncing off your eyes and how beautiful they were. Oh and the views were pretty too but not as pretty as you.
+                    <br>
+                    <br>
+                    <i>I can't lie, she has the prettiest eyes I've ever seen</i>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Memory Section 3 -->
+    <div id="memory-3" class="section">
+        <div class="memory-content">
+            <div class="image-container">
+                <img src="src/moment3.jpg" alt="Moment 3 Image">
+            </div>
+            <div class="text-container">
+                <h5 style="color: #1E90FF;">Fishing</h5>
+                <p style="color: #4682B4;">We have spent countless hours fishing only to skunk out but every hour was worth it because in the end, my greatest catch is you.
+                    <br>
+                    <br>
+                    <i>Storm, lightning, thunder. I'm drowning in the deepest of truths. Fuck, I think I'm falling for you</i>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Memory Section 4 -->
+    <div id="memory-4" class="section">
+        <div class="memory-content">
+            <div class="image-container">
+                <img src="src/moment4.jpg" alt="Moment 4 Image">
+            </div>
+            <div class="text-container">
+                <h5 style="color: #FF0000;">Boyfriend Day</h5>
+                <p style="color: #FF0000;">I'm so thankful for you planning so many of our events together including a roaring zoo day. Every day feels like boyfriend day when I'm with you.
+                    <br>
+                    <br>
+                    <i>Cause it's been another perfect day with ya. Wanna lay with ya. Spend the night with ya. Then spend my life with ya</i>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Memory Section 5 -->
+    <div id="memory-5" class="section">
+        <div class="memory-content">
+            <div class="image-container">
+                <img src="src/moment5.jpg" alt="Moment 5 Image">
+            </div>
+            <div class="text-container">
+                <h5 style="color: #FF69B4;">Do-si-do</h5>
+                <p style="color: #FF1493;">It's so fun dancing with you. Every moment of it is so exciting even the ones where you step on my toes!
+                    <br>
+                    <br>
+                    <i>'Cause there we are again in the middle of the night. We're dancing 'round the kitchen in the refrigerator light</i>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Memory Section 6 -->
+    <div id="memory-6" class="section">
+        <div class="memory-content">
+            <div class="image-container">
+                <img src="src/moment6.jpg" alt="Moment 6 Image">
+            </div>
+            <div class="text-container">
+                <h5 style="color: #522D6A;">Sleepovers</h5>
+                <p style="color: #8D3B71;">And finally, my favorite moments with you are the ones where we spend the night together. I love the masks that we do together while I lie on your lap
+                    and we listen to lovey music. I love talking to you late at night while we both doze off to sleep. I love the random mini cuddle sessions
+                    we have in the middle of the night. I love waking up to see you drooling on my pillow. I love every moment with you.
+                    <br>
+                    <br>
+                    <i>I was screaming, "Long live all the magic we made and bring on all the pretenders". I'm not afraid</i>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Playback -->
+    <video id="anniversarySong" autoplay loop playsinline>
+        <source src="src/long_live.mp4" type="video/mp4">
+        Your browser does not support the video element.
+    </video>
+
+    <!-- Materialize JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const song = document.getElementById('anniversarySong');
+            
+            // Function to attempt playing the video
+            function attemptPlay() {
+                song.play().then(() => {
+                    console.log("Autoplay started successfully");
+                }).catch(error => {
+                    console.log("Autoplay was prevented. Retrying...");
+                    // Retry after a short delay
+                    setTimeout(attemptPlay, 1000);
+                });
+            }
+
+            // Initial attempt to play
+            attemptPlay();
+
+            const sections = document.querySelectorAll('.section');
+            const dots = document.querySelectorAll('.dot');
+
+            // Smooth scrolling for dot navigation
+            dots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    const targetId = dot.getAttribute('data-section');
+                    const targetSection = document.getElementById(targetId);
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+
+            // Update active dot on scroll
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= sectionTop - sectionHeight / 3) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                dots.forEach(dot => {
+                    dot.classList.remove('active');
+                    if (dot.getAttribute('data-section') === current) {
+                        dot.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!-- Move this just before the closing </body> tag -->
+    <div class="dot-navigation">
+        <div class="dot" data-section="intro-section"></div>
+        <div class="dot" data-section="memory-1"></div>
+        <div class="dot" data-section="memory-2"></div>
+        <div class="dot" data-section="memory-3"></div>
+        <div class="dot" data-section="memory-4"></div>
+        <div class="dot" data-section="memory-5"></div>
+        <div class="dot" data-section="memory-6"></div>
+    </div>
+</body>
+</html>
